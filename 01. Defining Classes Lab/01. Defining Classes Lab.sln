@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Bank Account Methods", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Test Client", "03. Test Client\03. Test Client.csproj", "{C64B36B1-3D3B-4843-BF53-16700ECE3495}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Person Class", "04. Person Class\04. Person Class.csproj", "{3FF9117A-84F9-4198-A438-BAD531184FC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.PersonClass", "04. Person Class\04.PersonClass.csproj", "{3FF9117A-84F9-4198-A438-BAD531184FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Bank Account1", "01. Bank Account1\01. Bank Account1.csproj", "{E0D0D1EC-B43F-4469-9258-BB2D9B933561}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Bank Account1", "01. Bank Account1\01. Bank Account1.csproj", "{E0D0D1EC-B43F-4469-9258-BB2D9B933561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

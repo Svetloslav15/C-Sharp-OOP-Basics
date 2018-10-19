@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankAccount
 {
-    class Person
+    public class Person
     {
         private string name;
         private int age;

@@ -16,7 +16,7 @@ namespace _01.RhombusOfStarss
                 PrintRow(i, n - i + 1);
             }
         }
-        public static void PrintRow(int n, int intervals)
+    public static void PrintRow(int n, int intervals)
         {
             string result = "";
             result += new string(' ', intervals);

@@ -21,13 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09.RectangleIntersection", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10.CarSalesman", "10.CarSalesman\10.CarSalesman.csproj", "{B920B80D-2A0F-496E-AF99-2CAB9C7E539F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "11.Pokemon Trainer", "11.Pokemon Trainer\11.Pokemon Trainer.csproj", "{5FC5621C-9D21-420C-BC54-355A12FFBAB4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "11.PokemonTrainer", "11.PokemonTrainer\11.PokemonTrainer.csproj", "{DC72A506-5841-46A0-95FC-9B14E8B54BA5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "12.Google", "12.Google\12.Google.csproj", "{F9370F97-05A8-4F42-8F38-35F4E2F3C168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.FamilyTree", "13.FamilyTree\13.FamilyTree.csproj", "{0735DDE3-ED3A-4C6C-A742-38861BF87742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "13.FamilyTree", "13.FamilyTree\13.FamilyTree.csproj", "{0735DDE3-ED3A-4C6C-A742-38861BF87742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +69,6 @@ Global
 		{B920B80D-2A0F-496E-AF99-2CAB9C7E539F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B920B80D-2A0F-496E-AF99-2CAB9C7E539F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B920B80D-2A0F-496E-AF99-2CAB9C7E539F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FC5621C-9D21-420C-BC54-355A12FFBAB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FC5621C-9D21-420C-BC54-355A12FFBAB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FC5621C-9D21-420C-BC54-355A12FFBAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FC5621C-9D21-420C-BC54-355A12FFBAB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC72A506-5841-46A0-95FC-9B14E8B54BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC72A506-5841-46A0-95FC-9B14E8B54BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC72A506-5841-46A0-95FC-9B14E8B54BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU

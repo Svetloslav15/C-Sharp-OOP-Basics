@@ -1,22 +1,19 @@
-﻿using System;
+﻿using MilitaryElite.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class Repair
+    public class Repair : IRepair
     {
         public string PartName { get; set; }
-        public int WorkHours { get; set; }
+        public int HoursWorkded { get; set; }
 
-        public Repair(string partName, int hours)
+        public Repair(string partName, int hoursWorkded)
         {
             this.PartName = partName;
-            this.WorkHours = hours;
-        }
-        public override string ToString()
-        {
-            return $"Part Name: {PartName} Hours Worked: {WorkHours}";
+            this.HoursWorkded = hoursWorkded;
         }
     }
 }

@@ -1,37 +1,25 @@
-﻿using System;
+﻿using MilitaryElite.Contracts;
+using MilitaryElite.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class Mission
+    public class Mission : IMission
     {
-        public string CodeName { get; set; }
-        private string state;
-        public Mission(string code, string state)
-        {
-            this.CodeName = code;
-            this.State = state;
-        }
-        public string State
-        {
-            get => this.state;
-            set
-            {
-                if (value != "inProgress" && value != "Finished")
-                {
-                    throw new ArgumentException("Invalid state!");
-                }
-                this.state = value;
-            }
-        }
+        public string CodeName { get; private set; }
+        public State State { get; private set; }
+
         public void CompleteMission()
         {
-            this.state = "Finished";
+            this.State = State.Finished;
         }
-        public override string ToString()
+
+        public Mission(string codeName, State state)
         {
-            return $"Code Name: {this.CodeName} State: {this.state}";
+            this.CodeName = codeName;
+            this.State = state;
         }
     }
 }

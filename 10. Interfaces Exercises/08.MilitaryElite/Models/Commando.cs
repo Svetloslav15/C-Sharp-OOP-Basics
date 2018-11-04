@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MilitaryElite.Contracts;
+using MilitaryElite.Enums;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class Commando : SpecialisedSoldier
+    public class Commando : SpecialisedSoldier, ICommando
     {
-        public List<Mission> Missions { get; set; }
+        public Commando(int id, string firstName, string lastName, decimal salary, Corps corps) 
+            : base(id, firstName, lastName, salary, corps)
+        {
+            this.Missions = new List<IMission>();
+        }
 
-        public Commando(string id, string firstname, string lastname, decimal salary, string corp, List<Mission> missions)
-            : base(id, firstname, lastname, salary, corp)
-        {
-            this.Missions = missions;
-        }
-        public override string ToString()
-        {
-            var result = base.ToString() + $"\nCorps: {this.Corp}" + "\nMissions:";
-            foreach (var m in Missions)
-            {
-                result += $"\n  {m}";
-            }
-            return result;
-        }
+        public ICollection<IMission> Missions { get; set; }
     }
 }

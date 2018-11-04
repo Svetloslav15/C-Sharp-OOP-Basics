@@ -1,28 +1,18 @@
-﻿using DefiningClasses.Models;
+﻿using MilitaryElite.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class LieutenantGeneral : Private
+    public class LieutenantGeneral : Private, ILieutenantGeneral
     {
-        public List<Private> Privates { get; }
-
-        public LieutenantGeneral(string firstname, string lastname, string id, decimal salary, List<Private> privates) 
-            : base(firstname, lastname, id, salary)
+        public LieutenantGeneral(int id, string firstName, string lastName, decimal salary)
+            : base(id, firstName, lastName, salary)
         {
-            this.Privates = privates;
+            this.Privates = new List<IPrivate>();
         }
 
-        public override string ToString()
-        {
-            string result = base.ToString() + "\nPrivates:";
-            foreach (var p in Privates)
-            {
-                result += $"\n  {p}";
-            }
-            return result;
-        }
+        public ICollection<IPrivate> Privates { get; set; }
     }
 }

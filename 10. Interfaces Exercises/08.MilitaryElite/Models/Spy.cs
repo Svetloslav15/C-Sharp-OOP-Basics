@@ -1,19 +1,18 @@
-﻿using System;
+﻿using MilitaryElite.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class Spy : Soldier
+    public class Spy : Soldier, ISpy
     {
-        public int CodeNum { get; set; }
-        public Spy(string firstname, string lastname, string id, int code) : base(firstname, lastname, id)
+        public int CodeNumber { get; private set; }
+
+        public Spy(int id, string firstName, string lastName, int codeNum)
+            : base(id, firstName, lastName)
         {
-            this.CodeNum = code;
-        }
-        public override string ToString()
-        {
-            return base.ToString() + $"\nCode Number: {this.CodeNum}";
+            this.CodeNumber = codeNum;
         }
     }
 }

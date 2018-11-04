@@ -1,20 +1,18 @@
-﻿using System;
+﻿using MilitaryElite.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
-    public class Private : Soldier
+    public class Private : Soldier, IPrivate
     {
-        public decimal Salary { get; private set; }
-        public Private(string firstname, string lastname, string id, decimal salary)
-            : base(firstname, lastname, id)
+        public decimal Salary { get; set; }
+
+        public Private(int id, string firstName, string lastName, decimal salary)
+            : base(id, firstName, lastName)
         {
             this.Salary = salary;
-        }
-        public override string ToString()
-        {
-            return base.ToString() + $" Salary: {this.Salary:f2}";
         }
     }
 }

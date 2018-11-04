@@ -1,25 +1,21 @@
-﻿using MilitaryElite.Models;
+﻿using MilitaryElite.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DefiningClasses.Models
+namespace MilitaryElite.Models
 {
     public abstract class Soldier : ISoldier
     {
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public string Id { get; set; }
-
-        public Soldier(string firstname, string lastname, string id)
+        public int Id { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        
+        public Soldier(int id, string firstName, string lastName)
         {
-            this.Firstname = firstname;
-            this.Lastname = lastname;
             this.Id = id;
-        }
-        public override string ToString()
-        {
-            return $"Name: {this.Firstname} {this.Lastname} Id: {this.Id}";
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
     }
 }

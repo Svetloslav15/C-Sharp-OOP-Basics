@@ -44,9 +44,9 @@ namespace StorageMaster.Models
                 throw new InvalidOperationException("No room in garage!");
             }
         }
-        public static void FullGarage(Vehicle[] garage)
+        public static void FullGarage(bool isFull)
         {
-            if (garage.Select(x => x == null).Count() == 0)
+            if (isFull)
             {
                 throw new InvalidOperationException("Storage is full!");
             }

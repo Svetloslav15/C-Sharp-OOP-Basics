@@ -23,14 +23,16 @@ namespace StorageMaster
         }
         public string AddProduct(string type, double price)
         {
-            Product product = ProductFactory.CreateProduct(type, price);
+            ProductFactory productFactory = new ProductFactory();
+            Product product = productFactory.CreateProduct(type, price);
             this.productsPool.Add(product);
             return $"Added {type} to pool";
         }
 
         public string RegisterStorage(string type, string name)
         {
-            Storage storage = StorageFactory.CreateStorage(type, name);
+            StorageFactory storageFactory = new StorageFactory();
+            Storage storage = storageFactory.CreateStorage(type, name);
             this.storageRegistry.Add(storage);
             return $"Registered {name}";
         }

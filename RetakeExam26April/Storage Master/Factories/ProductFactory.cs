@@ -6,9 +6,9 @@ using System.Text;
 
 namespace StorageMaster.Factories
 {
-    public static class ProductFactory
+    public class ProductFactory
     {
-        public static Product CreateProduct(string type, double price)
+        public Product CreateProduct(string type, double price)
         {
             switch (type)
             {

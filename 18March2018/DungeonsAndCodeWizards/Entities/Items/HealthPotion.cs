@@ -1,7 +1,5 @@
-﻿using DungeonsAndCodeWizards.Characters;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DungeonsAndCodeWizards.Entities.Characters;
+
 
 namespace DungeonsAndCodeWizards.Entities.Items
 {

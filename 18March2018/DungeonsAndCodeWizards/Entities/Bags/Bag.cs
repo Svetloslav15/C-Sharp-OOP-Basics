@@ -8,9 +8,31 @@ namespace DungeonsAndCodeWizards.Entities.Bags
 {
     public abstract class Bag
     {
-        public int Capacity { get; set; }
-        public List<Item> items { get; }
-        private double load;
+        private const int DefaultCapacity = 100;
+
+        private readonly List<Item> items;
+        private int capacity;
+
+        protected Bag(int capacity = DefaultCapacity)
+        {
+            this.Capacity = capacity;
+            this.items = new List<Item>();
+        }
+
+        protected int Capacity
+        {
+            get
+            {
+                return this.capacity;
+            }
+            set
+            {
+                this.capacity = value;
+            }
+        }
+
+        private int Load => this.items.Sum(i => i.Weight);
+
         public IReadOnlyCollection<Item> Items
         {
             get
@@ -18,39 +40,39 @@ namespace DungeonsAndCodeWizards.Entities.Bags
                 return this.items.AsReadOnly();
             }
         }
-        public double Load
-        {
-            get => this.load;
-            set
-            {
-                this.load = this.Items.Select(x => x.Weight).Sum();
-            }
-        }
-        public virtual void AddItem(Item item)
+
+        public void AddItem(Item item)
         {
             if (this.Load + item.Weight > this.Capacity)
             {
                 throw new InvalidOperationException("Bag is full!");
             }
+
             this.items.Add(item);
         }
-        public virtual Item GetItem(string name)
+
+        public Item GetItem(string name)
         {
-            if (this.Items.Count == 0)
+            EnsureItemExists(name);
+
+            var item = this.items.First(i => i.GetType().Name == name);
+            this.items.Remove(item);
+
+            return item;
+        }
+
+        private void EnsureItemExists(string name)
+        {
+            if (!this.items.Any())
             {
                 throw new InvalidOperationException("Bag is empty!");
             }
-            var item = this.Items.FirstOrDefault(x => x.GetType().Name == name);
-            if (item != null)
+
+            var itemExists = this.Items.Any(i => i.GetType().Name == name);
+            if (!itemExists)
             {
                 throw new ArgumentException($"No item with name {name} in bag!");
             }
-            this.items.Remove(item);
-            return item;
-        }
-        public Bag(int capacity = 100)
-        {
-            this.Capacity = capacity;
         }
     }
 }

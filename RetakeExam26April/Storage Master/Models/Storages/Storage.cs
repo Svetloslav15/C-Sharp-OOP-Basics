@@ -50,9 +50,9 @@ namespace StorageMaster.Models.Storages
 
         public int UnloadVehicle(int garageSlot)
         {
+            ErrorTracker.FullGarage(this.IsFull);
             ErrorTracker.InvalidGarageSlot(this.GarageSlots, garageSlot);
             ErrorTracker.EmptyGarageSlot(this.garage[garageSlot]);
-            ErrorTracker.FullGarage(this.garage);
 
             Vehicle currentVehicle = this.garage[garageSlot];
             int uploadedProducts = 0;
@@ -64,6 +64,10 @@ namespace StorageMaster.Models.Storages
                 uploadedProducts++;
             }
             return uploadedProducts;
+        }
+        public override string ToString()
+        {
+            return this.Name + ":\n" + "Storage worth: $" + this.products.Select(x => x.Price).Sum().ToString("F2");
         }
     }
 }

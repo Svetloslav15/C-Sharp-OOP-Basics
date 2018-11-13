@@ -19,12 +19,12 @@ public class Nation
     public double TotalPower()
     {
         double totalMembersPower = this.members.Sum(x => x.Power);
-        double totalMonumentsPower = this.CalculateMonumentsPower() / 100;
+        double totalMonumentsPower = this.CalculateMonumentsPower();
         if (totalMonumentsPower == 0)
         {
             return totalMembersPower;
         }
-        return totalMembersPower * totalMonumentsPower;
+        return totalMembersPower * totalMonumentsPower / 100;
     }
     private double CalculateMonumentsPower()
     {

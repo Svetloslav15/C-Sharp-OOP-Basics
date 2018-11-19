@@ -1,117 +1,103 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class DraftManager
 {
-    private string mode;
+    private ICollection<Provider> providers;
+    private ICollection<Harvester> harvesters;
+
     private double totalStoredEnergy;
     private double totalMinedOre;
-    private List<Harvester> harvesters;
-    private List<Provider> providers;
-    private Dictionary<string, double> energyRequirementMode;
-    private Dictionary<string, double> oreOutputMode;
+    private Modes mode;
 
     public DraftManager()
     {
-        this.totalMinedOre = 0;
-        this.totalStoredEnergy = 0;
-        this.harvesters = new List<Harvester>();
         this.providers = new List<Provider>();
-        this.mode = "Full";
-
-        energyRequirementMode = new Dictionary<string, double>();
-        this.energyRequirementMode["Full"] = 1.0;
-        this.energyRequirementMode["Half"] = 0.6;
-        this.energyRequirementMode["Energy"] = 0.0;
-
-        oreOutputMode = new Dictionary<string, double>();
-        this.oreOutputMode["Full"] = 1.0;
-        this.oreOutputMode["Half"] = 0.5;
-        this.oreOutputMode["Energy"] = 0.0;
+        this.harvesters = new List<Harvester>();
     }
 
     public string RegisterHarvester(List<string> arguments)
     {
-        try
-        {
-            Harvester harvester = HarvesterFactory.CreateHarvester(arguments);
-            this.harvesters.Add(harvester);
-            return $"Successfully registered {harvester.GetTypeName()} Harvester - {harvester.Id}";
-        }
-        catch (Exception ex)
-        {
-            return ex.Message;
-        }
+        Harvester harvester = HarvesterFactory.CreateHarvester(arguments);
+        this.harvesters.Add(harvester);
+        return $"Successfully registered {harvester.GetType().Name.Replace("Harvester", "")} Harvester - {harvester.Id}";
     }
 
     public string RegisterProvider(List<string> arguments)
     {
-        try
-        {
-            Provider provider = ProviderFactory.CreateProvider(arguments);
-            this.providers.Add(provider);
-            return $"Successfully registered {provider.GetTypeName()} Provider - {provider.Id}";
-        }
-        catch (Exception ex)
-        {
-
-            return ex.Message;
-        }
+        Provider provider = ProviderFactory.CreateProvider(arguments);
+        this.providers.Add(provider);
+        return $"Successfully registered {provider.GetType().Name.Replace("Provider", "")} Provider - {provider.Id}";
     }
 
     public string Day()
     {
-        double summedOreOutput = 0;
-        double energyModifier = this.energyRequirementMode[this.mode];
-        double oreModifier = this.oreOutputMode[this.mode];
-        double summedEnergy = this.providers.Select(x => x.EnergyOutput).Sum();
-        this.totalStoredEnergy += summedEnergy;
-
-        double energyRequired = this.harvesters.Select(x => x.EnergyRequirement).Sum();
-
-        if (energyRequired <= this.totalStoredEnergy)
+        double currentEnergy = this.providers.Sum(x => x.EnergyOutput);
+        this.totalStoredEnergy += currentEnergy;
+        double neededEnergy = this.harvesters.Sum(x => x.EnergyRequirement) * this.EnergyModeModifier();
+        double summedOreOutput = 0.0;
+        if (neededEnergy <= this.totalStoredEnergy)
         {
-            summedOreOutput = this.harvesters.Select(x => x.OreOutput * oreModifier).Sum();
+            this.totalStoredEnergy -= neededEnergy;
+            summedOreOutput = this.harvesters.Sum(x => x.OreOutput) * this.OreModeModifier();
             this.totalMinedOre += summedOreOutput;
-            this.totalStoredEnergy -= energyRequired;
         }
-        return $"A day has passed.\n" +
-            $"Energy Provided: {summedEnergy}\n" +
-            $"Plumbus Ore Mined: {summedOreOutput}";
+        StringBuilder result = new StringBuilder();
+        result.AppendLine("A day has passed.");
+        result.AppendLine($"Energy Provided: {currentEnergy}");
+        result.AppendLine($"Plumbus Ore Mined: {summedOreOutput}");
+        return result.ToString().Trim();
     }
 
     public string Mode(List<string> arguments)
     {
-        string mode = arguments[0];
-        if (mode == "Full" || mode == "Half" || mode == "Energy")
+        if (Enum.TryParse(typeof(Modes), arguments[0], out object newMode))
         {
-            this.mode = mode;
+            this.mode = (Modes)newMode;
+            return $"Successfully changed working mode to {this.mode} Mode";
         }
-        return $"Successfully changed working mode to {this.mode} Mode";
+        throw new ArgumentException("Invalid Mode Type!");
+
     }
 
     public string Check(List<string> arguments)
     {
         string id = arguments[0];
-        var provider = this.providers.FirstOrDefault(x => x.Id == id);
-        if (provider != null)
+        Provider provider = this.providers.FirstOrDefault(x => x.Id == id);
+        if (provider == null)
         {
-            return provider.ToString();
-        }
-        var harvester = this.harvesters.FirstOrDefault(x => x.Id == id);
-        if (harvester != null)
-        {
+            Harvester harvester = this.harvesters.FirstOrDefault(x => x.Id == id);
+            if (harvester == null)
+            {
+                throw new ArgumentException($"No element found with id - {id}");
+            }
             return harvester.ToString();
         }
-        return $"No element found with id - {id}";
+        return provider.ToString();
     }
 
     public string ShutDown()
     {
-        return "System Shutdown\n" +
-                $"Total Energy Stored: {this.totalStoredEnergy}\n" + 
-                $"Total Mined Plumbus Ore: {this.totalMinedOre}";
+        StringBuilder result = new StringBuilder();
+        result.AppendLine("System Shutdown");
+        result.AppendLine($"Total Energy Stored: {this.totalStoredEnergy}");
+        result.AppendLine($"Total Mined Plumbus Ore: {this.totalMinedOre}");
+        return result.ToString().Trim();
     }
 
+    private double EnergyModeModifier()
+    {
+        if (this.mode == Modes.Full) return 1.0;
+        else if (this.mode == Modes.Half) return 0.60;
+        else return 0;
+    }
+
+    private double OreModeModifier()
+    {
+        if (this.mode == Modes.Full) return 1.0;
+        else if (this.mode == Modes.Half) return 0.50;
+        else return 0;
+    }
 }

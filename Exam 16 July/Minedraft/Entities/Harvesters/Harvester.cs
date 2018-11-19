@@ -1,46 +1,50 @@
 ﻿using System;
+using System.Text;
 
-public abstract class Harvester : IIdentifiable
+public abstract class Harvester
 {
+    public string Id { get; set; }
     private double oreOutput;
     private double energyRequirement;
 
-    public string Id { get; }
+    protected Harvester(string id, double oreOutput, double energyRequirement)
+    {
+        this.Id = id;
+        this.OreOutput = oreOutput;
+        this.EnergyRequirement = energyRequirement;
+    }
     public double OreOutput
     {
         get => this.oreOutput;
-        set
+        protected set
         {
-            ExceptionHandler.NagativeOreOutput(value);
+            if (value < 0)
+            {
+                throw new ArgumentException($"Harvester is not registered, because of it's {nameof(this.OreOutput)}");
+            }
             this.oreOutput = value;
         }
     }
-    public double EnergyRequirement
+    public double EnergyRequirement 
     {
         get => this.energyRequirement;
-        set
+        protected set
         {
-            ExceptionHandler.EnergyRequirement(value);
+            if (value < 0 || value > 20000)
+            {
+                throw new ArgumentException($"Harvester is not registered, because of it's {nameof(this.EnergyRequirement)}");
+            }
             this.energyRequirement = value;
         }
     }
-
-    protected Harvester(string id, double oreoutput, double energyrequirement)
-    {
-        this.Id = id;
-        this.OreOutput = oreoutput;
-        this.EnergyRequirement = energyrequirement;
-    }
-    public string GetTypeName()
-    {
-        string name = this.GetType().Name;
-        name = name.Substring(0, name.IndexOf("Harvester"));
-        return name;
-    }
     public override string ToString()
     {
-        return $"{this.GetTypeName()} Harvester - {Id}{Environment.NewLine}" +
-               $"Ore Output: {OreOutput}{Environment.NewLine}" +
-               $"Energy Requirement: {EnergyRequirement}";
+        var builder = new StringBuilder();
+
+        builder.AppendLine($"{this.GetType().Name.Replace("Harvester", "")} Harvester - {this.Id}");
+        builder.AppendLine($"Ore Output: {this.OreOutput}");
+        builder.Append($"Energy Requirement: {this.EnergyRequirement}");
+
+        return builder.ToString();
     }
 }

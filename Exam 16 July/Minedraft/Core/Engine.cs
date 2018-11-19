@@ -27,11 +27,11 @@ public class Engine
                     case "RegisterProvider":
                         Print(this.draftManager.RegisterProvider(tokens)); break;
                     case "Day":
-                        Print(this.draftManager.Day());break;
+                        Print(this.draftManager.Day()); break;
                     case "Mode":
-                        Print(this.draftManager.Mode(tokens));break;
+                        Print(this.draftManager.Mode(tokens)); break;
                     case "Check":
-                        Print(this.draftManager.Check(tokens));break;
+                        Print(this.draftManager.Check(tokens)); break;
                     case "Shutdown":
                         Print(this.draftManager.ShutDown());
                         return;

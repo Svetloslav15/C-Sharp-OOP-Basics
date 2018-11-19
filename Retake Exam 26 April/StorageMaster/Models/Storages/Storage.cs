@@ -35,6 +35,7 @@ namespace StorageMaster.Models.Storages
             ErrorTracker.EmptyGarageSlot(this.garage[garageSlot]);
             return this.garage[garageSlot];
         }
+
         private int AddVehicleToGarage(Vehicle vehicle)
         {
             int freeGarageSlotIndex = Array.IndexOf(this.garage, null);

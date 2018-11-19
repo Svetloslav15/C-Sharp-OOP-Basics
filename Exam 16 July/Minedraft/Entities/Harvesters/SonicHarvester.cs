@@ -1,11 +1,10 @@
 ﻿public class SonicHarvester : Harvester
 {
-    public int SonicFactor { get; set; }
-
-    public SonicHarvester(string id, double oreoutput, double energyrequirement, int sonicFactor)
-        : base(id, oreoutput, energyrequirement)
+    public int SonicFactory { get; }
+    public SonicHarvester(string id, double oreOutput, double energyRequirement, int sonicFactory) 
+        : base(id, oreOutput, energyRequirement)
     {
-        this.SonicFactor = sonicFactor;
-        this.EnergyRequirement /= this.SonicFactor;
+        this.SonicFactory = sonicFactory;
+        this.EnergyRequirement /= this.SonicFactory;
     }
 }

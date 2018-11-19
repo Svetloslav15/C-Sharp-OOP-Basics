@@ -48,6 +48,10 @@ namespace StorageMaster
         {
             foreach (var name in productNames)
             {
+                if (this.currentVehicle.IsFull)
+                {
+                    break;
+                }
                 var contains = this.productsPool.Any(x => x.GetType().Name == name);
                 if (contains == false)
                 {

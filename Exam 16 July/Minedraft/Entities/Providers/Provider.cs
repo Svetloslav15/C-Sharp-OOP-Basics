@@ -1,35 +1,37 @@
 ﻿using System;
+using System.Text;
 
-public abstract class Provider : IIdentifiable
+public abstract class Provider
 {
-    public string Id { get; set; }
+    public string Id { get; }
     private double energyOutput;
 
     public double EnergyOutput
     {
         get => this.energyOutput;
-        set
+        protected set
         {
-            ExceptionHandler.EnergyOutput(value);
+            if (value < 0 || value >= 10000)
+            {
+                throw new ArgumentException($"Provider is not registered, because of it's {nameof(this.EnergyOutput)}");
+            }
             this.energyOutput = value;
         }
     }
 
-    public Provider(string id, double energyOutput)
+
+    protected Provider(string id, double energyOutput)
     {
         this.Id = id;
         this.EnergyOutput = energyOutput;
     }
-    public string GetTypeName()
-    {
-        string name = this.GetType().Name;
-        name = name.Substring(0, name.IndexOf("Provider"));
-        return name;
-    }
     public override string ToString()
     {
-        return $"{this.GetTypeName()} Provider - {Id}{Environment.NewLine}" +
-               $"Energy Output: {EnergyOutput}";
+        var builder = new StringBuilder();
+
+        builder.AppendLine($"{this.GetType().Name.Replace("Provider", "")} Provider - {this.Id}");
+        builder.Append($"Energy Output: {this.EnergyOutput}");
+
+        return builder.ToString();
     }
 }
-

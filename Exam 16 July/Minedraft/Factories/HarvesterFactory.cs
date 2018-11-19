@@ -13,16 +13,12 @@ public class HarvesterFactory
         switch (type)
         {
             case "Sonic":
-                {
-                    int sonicFactor = int.Parse(tokens[4]);
-                    return new SonicHarvester(id, oreOutput, energyRequirement, sonicFactor);
-                }
+                int sonicFactor = int.Parse(tokens[4]);
+                return new SonicHarvester(id, oreOutput, energyRequirement, sonicFactor);
             case "Hammer":
-                {
-                    return new HammerHarvester(id, oreOutput, energyRequirement);
-                }
+                return new HammerHarvester(id, oreOutput, energyRequirement);
             default:
-                throw new ArgumentException("Harvester is not registered, because of it's Type");
+                throw new ArgumentException("Invalid Harvester Type");
         }
     }
 }

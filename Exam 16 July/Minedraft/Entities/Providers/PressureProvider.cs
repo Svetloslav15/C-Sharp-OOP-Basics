@@ -1,9 +1,7 @@
-﻿using System;
-public class PressureProvider : Provider
+﻿public class PressureProvider : Provider
 {
-    public PressureProvider(string id, double energyOutput)
-        : base(id, energyOutput)
+    public PressureProvider(string id, double energyOutput) : base(id, energyOutput)
     {
-        this.EnergyOutput *= 1.5;
+        this.EnergyOutput += 0.5 * this.EnergyOutput;
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 
-namespace GrandPrix
+public class StartUp
 {
-    public class StartUp
+    static void Main()
     {
-        static void Main()
-        {
 
-        }
     }
 }

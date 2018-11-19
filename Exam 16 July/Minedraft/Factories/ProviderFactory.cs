@@ -12,15 +12,11 @@ public class ProviderFactory
         switch (type)
         {
             case "Solar":
-                {
-                    return new SolarProvider(id, energyOutput);
-                }
+                return new SolarProvider(id, energyOutput);
             case "Pressure":
-                {
-                    return new PressureProvider(id, energyOutput);
-                }
+                return new PressureProvider(id, energyOutput);
             default:
-                throw new ArgumentException("Provider is not registered, because of it's Type");
+                throw new ArgumentException($"Provider is not registered, because of it's Type!");
         }
     }
 }

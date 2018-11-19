@@ -1,34 +1,31 @@
 ﻿using System;
 
-namespace GrandPrix.Entities.Tyres
+public abstract class Tyre
 {
-    public abstract class Tyre
+    public string Name { get; private set; }
+    public double Hardness { get; private set; }
+    private double degradation;
+    public virtual double Degradation
     {
-        public string Name { get; private set; }
-        public double Hardness { get; private set; }
-        private double degradation;
-        public virtual double Degradation
+        get => this.degradation;
+        protected set
         {
-            get => this.degradation;
-            protected set
+            if (value <= 0)
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException("Blown Tyre");
-                }
+                throw new ArgumentException("Blown Tyre");
             }
         }
+    }
 
-        protected Tyre(string name, double hardness)
-        {
-            this.Name = name;
-            this.Hardness = hardness;
-            this.Degradation = 100;
-        }
+    protected Tyre(string name, double hardness)
+    {
+        this.Name = name;
+        this.Hardness = hardness;
+        this.Degradation = 100;
+    }
 
-        public virtual void ReduceDegradation()
-        {
-            this.Degradation -= this.Hardness;
-        }
+    public virtual void ReduceDegradation()
+    {
+        this.Degradation -= this.Hardness;
     }
 }

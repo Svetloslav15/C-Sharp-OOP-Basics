@@ -1,7 +1,10 @@
 ﻿using AnimalCentre.Models.Animals;
+using AnimalCentre.Models.Contracts;
 using AnimalCentre.Models.Hotels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace AnimalCentre.Factories
@@ -10,19 +13,11 @@ namespace AnimalCentre.Factories
     {
         public Animal CreateAnimal(string type, string name, int energy, int happiness, int procedureTime)
         {
-            switch (type)
-            {
-                case "Cat":
-                    return new Cat(name, energy, happiness, procedureTime);
-                case "Dog":
-                    return new Dog(name, energy, happiness, procedureTime);
-                case "Lion":
-                    return new Lion(name, energy, happiness, procedureTime);
-                case "Pig":
-                    return new Pig(name, energy, happiness, procedureTime);
-                default:
-                    return null;
-            }
+            Type typef = Assembly.GetExecutingAssembly()
+                 .GetTypes()
+                 .FirstOrDefault(x => x.Name == type);
+
+            return (Animal)Activator.CreateInstance(typef);
         }
     }
 }
